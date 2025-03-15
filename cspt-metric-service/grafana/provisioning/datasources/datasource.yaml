@@ -1,0 +1,10 @@
+apiVersion: 1
+datasources:
+  - name: MySQL
+    type: mysql
+    url: docker-mysql:3306
+    database: selenium
+    user: root
+    secureJsonData:
+      password: selenium-performance
+    isDefault: true
