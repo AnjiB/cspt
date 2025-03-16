@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 
+@Slf4j
 public class LightHouse {
 
   public static void analyse(String url, String channel) throws Exception {
@@ -19,16 +21,15 @@ public class LightHouse {
         new BufferedReader(new InputStreamReader(process.getInputStream()))) {
       String line;
       while ((line = reader.readLine()) != null) {
-        System.out.println(line);
+        log.info(line);
       }
     }
     process.waitFor();
     String report = new String(Files.readAllBytes(Paths.get("target/lighthouse-report.json")));
-    // System.out.println(report);
     JSONObject jsonReport = new JSONObject(report);
     double performanceScore =
         jsonReport.getJSONObject("categories").getJSONObject("performance").getDouble("score");
-    System.out.println("Performance Score: " + performanceScore);
+    log.info("Performance Score: " + performanceScore);
   }
 
   private static String getPath() {

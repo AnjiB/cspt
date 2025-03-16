@@ -2,10 +2,13 @@ package com.anji.sel.util;
 
 import com.anji.sel.pojo.metric.MetricDto;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class FilterUtil {
 
   public static List<MetricDto> filter(List<MetricDto> rawList) {
+    log.info("Metrics before filtering: " + rawList.toString());
     return rawList.stream().filter(item -> !filterItem(item.getName())).toList();
   }
 
